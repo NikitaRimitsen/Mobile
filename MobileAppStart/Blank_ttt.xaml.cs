@@ -54,72 +54,9 @@ namespace MobileAppStart
             grid2x1.Children.Add(uus_mang, 0, 1);
             uus_mang.Clicked += Uus_mang_Clicked;
             Content = grid2x1;
-            /*newgame = new Button
-            {
-                Text = "Uus mäng",
-                BackgroundColor = Color.SandyBrown,
-                TextColor = Color.Black
-            };
-            vebor = new Button
-            {
-                Text = "Kes on esimene?",
-                HorizontalOptions = LayoutOptions.End,
-                BackgroundColor = Color.SandyBrown,
-                TextColor = Color.Black
-            };
-            kvadrat = new Grid
-            {
-                RowDefinitions =
-                {
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                },
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition{Width=new GridLength(1,GridUnitType.Star)},
-                    new ColumnDefinition{Width=new GridLength(1,GridUnitType.Star)},
-                    new ColumnDefinition{Width=new GridLength(1,GridUnitType.Star)}
-                },
-            };
-            //1 - строчка
-            kvadrat.Children.Add(new Image { Source = "krest.png" }, 0, 0);//(0-x,0-y)
-            kvadrat.Children.Add(new Image { Source = "nolik.png" }, 1, 0);
-            kvadrat.Children.Add(new Image { Source = "krest.png" }, 2, 0);
-            //2 - строчка
-            kvadrat.Children.Add(new BoxView { Color = Color.Red }, 0, 1);
-            kvadrat.Children.Add(new BoxView { Color = Color.YellowGreen }, 1, 1);
-            kvadrat.Children.Add(new BoxView { Color = Color.Orange }, 2, 1);
-            //3 - строчка
-            kvadrat.Children.Add(new BoxView { Color = Color.Purple }, 0, 2);
-            kvadrat.Children.Add(new BoxView { Color = Color.Pink }, 1, 2);
-            kvadrat.Children.Add(new BoxView { Color = Color.White }, 2, 2);
-
-            TapGestureRecognizer tap = new TapGestureRecognizer();
-            tap.Tapped += Tap_Tapped;
-            kvadrat.GestureRecognizers.Add(tap);
-            pole = new Frame
-            {
-                Content = kvadrat,
-                BorderColor = Color.Black,
-                BackgroundColor =  Color.White,
-                VerticalOptions = LayoutOptions.FillAndExpand
-            };
-            FlexLayout knopka = new FlexLayout
-            {
-                Children = { newgame, vebor },
-                JustifyContent = FlexJustify.SpaceEvenly
-            };
-            StackLayout st = new StackLayout
-            {
-                Children = {pole, knopka}
-            };
-            Content = st;
-            st.BackgroundColor = Color.PeachPuff;*/
         }
 
-        
-
+       
         public async void Kes_on_Esimene()
         {
             string esimine = await DisplayPromptAsync("Kes on esimene?", "Tee valiku Kollane - 1 või Punane - 2", initialValue:"1", maxLength:1, keyboard:Keyboard.Numeric);
@@ -134,7 +71,8 @@ namespace MobileAppStart
         }
 
         private void Uus_mang_Clicked(object sender, EventArgs e)
-        {          
+        {
+            int[,] Tulemused = new int[3, 3];
             Uus_mang();
         }
 
@@ -144,7 +82,7 @@ namespace MobileAppStart
             if (uus)
             {
                 Kes_on_Esimene();
-                int[,] Tulemused = new int[3, 3];
+                
                 int tulemus = 0;
                 grid3x3 = new Grid
                 {
@@ -212,12 +150,14 @@ namespace MobileAppStart
             {
                 DisplayAlert("Võit", "Esimine on võitja!", "Ok");
                 //Uus_mang();
+                Tulemused = new int[0, 0];
 
             }
             else if (tulemus==2)
             {
                 DisplayAlert("Võit", "Teine on võitja!", "Ok");
                 //Uus_mang();
+                Tulemused = new int[0, 0];
             }
         }
         private void Tap_Tapped(object sender, EventArgs e)

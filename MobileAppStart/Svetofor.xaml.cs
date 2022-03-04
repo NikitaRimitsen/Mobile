@@ -18,7 +18,7 @@ namespace MobileAppStart
         Frame red;
         Frame yellow;
         Frame green;
-        int nazata = 0;
+        int nazata = 1;
         public Svetofor()
         {
             vkl = new Button
@@ -121,7 +121,6 @@ namespace MobileAppStart
             st.BackgroundColor = Color.PeachPuff;
 
         }
-
         private async void Vekl_Clicked(object sender, EventArgs e)
         {
 
@@ -148,6 +147,7 @@ namespace MobileAppStart
             }
             else
             {
+                
                 redpunane.Text = "Stop";
                 yellokollane.Text = "Ootama";
                 greeroheline.Text = "Minna";
@@ -222,6 +222,7 @@ namespace MobileAppStart
             }
             else
             {
+                DisplayAlert("Hoiatus", "Kõigepealt lülitage valgusfoor sisse", "Olgu");
                 redpunane.Text = "";
                 yellokollane.Text = "";
                 greeroheline.Text = "";
