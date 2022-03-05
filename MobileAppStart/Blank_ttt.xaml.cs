@@ -23,18 +23,16 @@ namespace MobileAppStart
         Grid grid2x1, grid3x3;
         //BoxView b;
         Image b;
-        Button uus_mang;
+        Button uus_mang, pravila, temapilti;
         public bool esimene;
         int tulemus = 0;
-        List<string> tulemused_1 = new List<string> ();
-        List<string> tulemused_2 = new List<string>();
         int[,] Tulemused = new int[3, 3];
         public Blank_ttt()
         {
             grid2x1 = new Grid
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
-                BackgroundColor = Color.Blue,
+                BackgroundColor = Color.DarkGray,
                 RowDefinitions =
                 {
                     new RowDefinition { Height = new GridLength(2, GridUnitType.Star) },
@@ -51,12 +49,38 @@ namespace MobileAppStart
             {
                 Text = "Uus mäng"
             };
-            grid2x1.Children.Add(uus_mang, 0, 1);
+            pravila = new Button()
+            {
+                Text = "Reegel"
+            };
+            temapilti = new Button()
+            {
+                Text = "Välimus"
+            };
+
+            FlexLayout knopki = new FlexLayout
+            {
+                Children = { uus_mang, pravila, temapilti},
+                JustifyContent = FlexJustify.SpaceEvenly
+            };
+            grid2x1.Children.Add(knopki, 0, 1);
             uus_mang.Clicked += Uus_mang_Clicked;
+            pravila.Clicked += Pravila_Clicked;
+            temapilti.Clicked += Temapilti_Clicked;
             Content = grid2x1;
+
         }
 
-       
+        private void Temapilti_Clicked(object sender, EventArgs e)
+        {
+            grid2x1.BackgroundColor = Color.Red;
+        }
+
+        private void Pravila_Clicked(object sender, EventArgs e)
+        {
+            DisplayAlert("Reegel", "Mängijad kordamööda panna vaba lahtrid valdkonnas 3 core 3 märgid(üks on alati ristid, teine on alati null). Võidab esimene, kes rivistab 3 oma tükki vertikaalselt, horisontaalselt või diagonaalselt. Esimese käigu teeb mängija, kes paneb risti.", "Ok");
+        }
+
         public async void Kes_on_Esimene()
         {
             string esimine = await DisplayPromptAsync("Kes on esimene?", "Tee valiku Kollane - 1 või Punane - 2", initialValue:"1", maxLength:1, keyboard:Keyboard.Numeric);
@@ -72,7 +96,6 @@ namespace MobileAppStart
 
         private void Uus_mang_Clicked(object sender, EventArgs e)
         {
-            int[,] Tulemused = new int[3, 3];
             Uus_mang();
         }
 
@@ -82,7 +105,7 @@ namespace MobileAppStart
             if (uus)
             {
                 Kes_on_Esimene();
-                
+                int[,] Tulemused = new int[3, 3];
                 int tulemus = 0;
                 grid3x3 = new Grid
                 {
@@ -150,14 +173,15 @@ namespace MobileAppStart
             {
                 DisplayAlert("Võit", "Esimine on võitja!", "Ok");
                 //Uus_mang();
-                Tulemused = new int[0, 0];
+                //Tulemused  = {0,0};
+
 
             }
             else if (tulemus==2)
             {
                 DisplayAlert("Võit", "Teine on võitja!", "Ok");
                 //Uus_mang();
-                Tulemused = new int[0, 0];
+                //Tulemused = new int[0, 0];
             }
         }
         private void Tap_Tapped(object sender, EventArgs e)
